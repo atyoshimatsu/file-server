@@ -1,6 +1,6 @@
 const net = require("net");
 
-const connect = () => {
+const connect = (type, file) => {
   const conn = net.createConnection({
     host: 'localhost', // change to IP address of computer, more on that below
     port: 3000,
@@ -9,11 +9,15 @@ const connect = () => {
   conn.setEncoding("utf8"); // interpret data as text
 
   conn.on("data", (data) => {
-    console.log("Server says: ", data);
+    console.log(data);
   });
 
   conn.on("connect", () => {
-    conn.write("Hello from client!");
+    conn.write(type + ',' + file);
+  });
+
+  conn.on('end', () => {
+    process.exit();
   });
 
   return conn;
