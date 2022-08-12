@@ -9,5 +9,5 @@ if (!paramValidator(type, file)) {
 }
 
 console.log("Connecting ...");
-const conn = connect();
+const conn = connect(type, file);
 
