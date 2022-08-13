@@ -3,7 +3,7 @@ const net = require("net");
 
 const connect = (file) => {
   const conn = net.createConnection({
-    host: 'localhost', // change to IP address of computer, more on that below
+    host: 'localhost',
     port: 3000,
   });
 
@@ -12,6 +12,7 @@ const connect = (file) => {
   conn.on("data", (data) => {
     fs.writeFile(`./client/files/${file}`, data, (err) => {
       if (err) throw err;
+      console.log('Success download');
       process.exit();
     });
   });
@@ -25,6 +26,6 @@ const connect = (file) => {
   });
 
   return conn;
-}
+};
 
 module.exports = { connect };
