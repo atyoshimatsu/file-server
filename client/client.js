@@ -1,6 +1,7 @@
+const fs = require("fs");
 const net = require("net");
 
-const connect = (type, file) => {
+const connect = (file) => {
   const conn = net.createConnection({
     host: 'localhost', // change to IP address of computer, more on that below
     port: 3000,
@@ -9,11 +10,14 @@ const connect = (type, file) => {
   conn.setEncoding("utf8"); // interpret data as text
 
   conn.on("data", (data) => {
-    console.log(data);
+    fs.writeFile(`./client/files/${file}`, data, (err) => {
+      if (err) throw err;
+      process.exit();
+    });
   });
 
   conn.on("connect", () => {
-    conn.write(type + ',' + file);
+    conn.write(file);
   });
 
   conn.on('end', () => {
