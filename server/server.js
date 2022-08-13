@@ -9,9 +9,8 @@ server.listen(3000, () => {
 
 server.on("connection", (client) => {
   console.log("New client connected!");
-  client.setEncoding("utf8"); // interpret data as text
   client.on("data", (data) => {
-    const file = data;
+    const file = data.toString('utf8');
     console.log(`The client is requesting to download ${file}`);
     download(client, file);
   });

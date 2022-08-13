@@ -7,12 +7,10 @@ const connect = (file) => {
     port: 3000,
   });
 
-  conn.setEncoding("utf8"); // interpret data as text
-
   conn.on("data", (data) => {
     fs.writeFile(`./client/files/${file}`, data, (err) => {
       if (err) throw err;
-      console.log('Success download');
+      console.log('Download success');
       process.exit();
     });
   });
@@ -22,6 +20,7 @@ const connect = (file) => {
   });
 
   conn.on('end', () => {
+    console.log('Connection closed');
     process.exit();
   });
 
