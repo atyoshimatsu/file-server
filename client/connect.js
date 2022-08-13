@@ -1,13 +1,11 @@
 const { connect } = require('./client');
-const { paramValidator } = require('./util');
 
-
-const [type, file] = process.argv.slice(2);
-if (!paramValidator(type, file)) {
+const file = process.argv[2];
+if (!file) {
   console.log('Invalid parameter(s)')
   process.exit();
 }
 
 console.log("Connecting ...");
-const conn = connect(type, file);
+const conn = connect(file);
 
